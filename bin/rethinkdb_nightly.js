@@ -41,6 +41,17 @@ configPath = configPath || path.resolve(process.cwd(), cli.args[0]);
 backup.log('Loading config file (' + configPath + ')');
 config = require(configPath);
 
+config.rethinkdb.host = (process.env.BACKUP_RETHINKDB_HOST || config.rethinkdb.host)
+config.rethinkdb.port = (process.env.BACKUP_RETHINKDB_PORT || config.rethinkdb.port)
+config.rethinkdb.db = (process.env.BACKUP_RETHINKDB_DB || config.rethinkdb.db)
+
+config.s3.key = (process.env.BACKUP_S3_KEY || config.s3.key)
+config.s3.secret = (process.env.BACKUP_S3_SECRET || config.s3.secret)
+config.s3.bucket = (process.env.BACKUP_S3_BUCKET || config.s3.bucket)
+config.s3.destination = (process.env.BACKUP_S3_DESTINATION || config.s3.destination)
+
+config.cron.crontab = (process.env.BACKUP_CRON_CRONTAB || config.cron.crontab)
+
 if(options.now) {
   backup.sync(config.rethinkdb, config.s3, function(err) {
     process.exit(err ? 1 : 0);
