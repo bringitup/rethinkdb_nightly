@@ -42,7 +42,7 @@ function log(message, tag) {
  * @param databaseName   The name of the database
  */
 function getArchiveName(databaseName) {
-  return util.format("%s_%s_dump.tar.gz", databaseName, moment().format("YYYY-MM-DD"))
+  return util.format("%s_%s_dump.tar.gz", databaseName, moment().format())
 }
 
 /* removeRF
